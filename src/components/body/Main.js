@@ -2,17 +2,24 @@ require('normalize.css/normalize.css');
 require('styles/App.css');
 
 import React from 'react';
-
-let yeomanImage = require('../../images/yeoman.png');
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
 class AppComponent extends React.Component {
+
+  constructor(props) {
+    super(props);
+    var i = 0;
+    this.map = [];
+    for (var i = 0; i < 10; i++) {
+      this.map.push(<ListGroupItem >{i}</ListGroupItem >);
+    }
+  }
+
   render() {
     return (
-      <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
-        <div className="notice">COINCIDE</div>
-        <div class="notice">Ariel Esteban Solis & Flavio Cordari</div>
-      </div>
+      <ListGroup>
+        {this.map}
+      </ListGroup>
     );
   }
 }
