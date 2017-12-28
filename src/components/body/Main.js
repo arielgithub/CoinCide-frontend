@@ -4,16 +4,11 @@ require('styles/App.css');
 import React, { Component } from 'react';
 import axios from 'axios';
 import { List } from 'react-item-list';
+import {
+  Link
+} from 'react-router-dom'
 
 import { ListGroup, ListGroupItem } from 'reactstrap';
-
-
-class Ads extends Component {
-  render() {
-    let itemData = this.props.itemData;
-    return <ListGroupItem>T{itemData.title} <br /> {itemData.description} </ListGroupItem>
-  }
-}
 
 class AppComponent extends React.Component {
 
@@ -23,24 +18,16 @@ class AppComponent extends React.Component {
       adses: []
     }
   }
-
-  componentDidMount() {
-    var self = this;
-    axios.get('http://localhost:3000/api/ads')
-      .then(res => {
-        self.setState({ adses: res.data })
-      }).catch((error) => {
-        //console.log("error", error) Gestione dei log?
-      })
-  }
-
   render() {
     return (
       <div>
-        Lista degli annunci:
-      <ListGroup>
-          <List items={this.state.adses} ListItem={Ads} />
-        </ListGroup>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/searchAds">Ricerca Annunci</Link></li>
+        <li><Link to="/insertAds">Inserisci Annuncio</Link></li>
+      </ul>
+
+      <div><h1>Do you want Coin? SWAP! with community</h1></div>
       </div>
     );
   }

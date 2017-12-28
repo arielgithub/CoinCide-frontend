@@ -68,6 +68,7 @@
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
     "react-item-list": "^1.0.2",
+    "react-router-dom": "^4.2.2",
     "reactstrap": "^5.0.0-alpha.4"
   }
 }
