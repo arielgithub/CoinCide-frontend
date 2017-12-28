@@ -1,30 +1,53 @@
 require('normalize.css/normalize.css');
 require('styles/App.css');
 
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
+import { List } from 'react-item-list';
+
 import { ListGroup, ListGroupItem } from 'reactstrap';
+
+
+class Ads extends Component {
+  render() {
+    let itemData = this.props.itemData;
+    return <ListGroupItem>This Item has id {itemData.name} and name {itemData.surname} </ListGroupItem>
+  }
+}
 
 class AppComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    var i = 0;
-    this.map = [];
-    for (var i = 0; i < 10; i++) {
-      this.map.push(<ListGroupItem >{i}</ListGroupItem >);
+    this.state = {
+      adses: []
     }
+  }
+
+  componentDidMount() {
+    var self = this;
+    axios.get('http://localhost:3000/api/Utentes')
+      .then(res => {
+        self.setState({ adses: res.data })
+      }).catch((error) => {
+        //console.log("error", error) Gestione dei log?
+      })
   }
 
   render() {
     return (
+      <div>
+        Lista degli annunci:
       <ListGroup>
-        {this.map}
-      </ListGroup>
+          <List items={this.state.adses} ListItem={Ads} />
+        </ListGroup>
+      </div>
     );
   }
 }
 
 AppComponent.defaultProps = {
 };
+
 
 export default AppComponent;
