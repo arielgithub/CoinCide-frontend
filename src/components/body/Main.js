@@ -11,7 +11,7 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 class Ads extends Component {
   render() {
     let itemData = this.props.itemData;
-    return <ListGroupItem>This Item has id {itemData.name} and name {itemData.surname} </ListGroupItem>
+    return <ListGroupItem>T{itemData.title} <br /> {itemData.description} </ListGroupItem>
   }
 }
 
@@ -26,7 +26,7 @@ class AppComponent extends React.Component {
 
   componentDidMount() {
     var self = this;
-    axios.get('http://localhost:3000/api/Utentes')
+    axios.get('http://localhost:3000/api/ads')
       .then(res => {
         self.setState({ adses: res.data })
       }).catch((error) => {
