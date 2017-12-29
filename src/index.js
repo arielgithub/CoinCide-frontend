@@ -11,8 +11,6 @@ import insertAds from './components/body/insertAds'
 import SearchAds from './components/body/searchAds'
 import { BrowserRouter, Route } from 'react-router-dom'
 
- 
-
 // Render the main component into the dom
 ReactDOM.render(<Header />, document.getElementById('header'));
 ReactDOM.render(<Footer />, document.getElementById('footer'));
