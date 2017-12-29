@@ -13,7 +13,7 @@ import {
 class Ads extends Component {
   render() {
     let itemData = this.props.itemData;
-    return <ListGroupItem><div>{itemData.title} <br /> {itemData.description}
+    return <ListGroupItem><div>{itemData.id} - {itemData.title} <br /> {itemData.description}
       <Button color="primary">Dettaglio</Button>
     </div></ListGroupItem>
   }
@@ -27,14 +27,17 @@ class SearchAdsComponent extends React.Component {
       adses: {
         list: [],
         pag: 1,
+        totPag: 1,
         npe: 10,
-        tot: 0
+        tote: 0,
+        paginator: []
       }
     }
   }
 
   componentDidMount() {
     this.getAdsPag(this.state.adses.pag, this.state.adses.npe);
+    this.countElements(this.state.adses.npe);
   }
 
   getAdsPag(pag, numPerPag) {
@@ -51,6 +54,40 @@ class SearchAdsComponent extends React.Component {
       }).catch((error) => {
         //console.log("error", error) Gestione dei log?
       })
+  }
+
+
+  countElements(numPerPag) {
+    var self = this;
+    axios.get('http://localhost:3000/api/ads/countAdsPag', {
+      params: {
+        numElementPerPage: numPerPag
+      }
+    })
+      .then(res => {
+        self.state.adses.tote = res.data.total;
+        self.state.adses.totPag = res.data.pages;
+        self.createPaginator(self.state.adses.totPag);
+        self.setState(self.adses)
+      }).catch((error) => {
+        //console.log("error", error) Gestione dei log?
+      })
+  }
+
+  createPaginator(totPag){
+    var self = this;
+    this.state.adses.paginator.push(<PaginationItem><PaginationLink previous href="#" /></PaginationItem>);
+    var i;
+    for(i = 1; i<=totPag; i++){
+      this.state.adses.paginator.push(<PaginationItem><PaginationLink key={i} onClick={self.changePage.bind(this,i)}>{i}</PaginationLink></PaginationItem>);
+    }
+    this.state.adses.paginator.push(<PaginationItem><PaginationLink next href="#" /></PaginationItem>);
+  }
+
+  changePage(page){
+    console.log(page);
+    this.getAdsPag(page, this.state.adses.npe);
+    this.setState(self.adses);
   }
 
   render() {
@@ -81,40 +118,10 @@ class SearchAdsComponent extends React.Component {
               </FormGroup>
             </ListGroupItem>
             <List items={this.state.adses.list} ListItem={Ads} />
-            <Pagination>
-              <PaginationItem>
-                <PaginationLink previous href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">
-                  1
-          </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">
-                  2
-          </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">
-                  3
-          </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">
-                  4
-          </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">
-                  5
-          </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink next href="#" />
-              </PaginationItem>
-            </Pagination>
           </ListGroup>
+          <Pagination>
+            {this.state.adses.paginator}
+          </Pagination>
         </div>
       </div>
     );
