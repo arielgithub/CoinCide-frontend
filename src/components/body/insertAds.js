@@ -1,5 +1,6 @@
 require('normalize.css/normalize.css');
 require('styles/App.css');
+require('styles/searchAds.css')
 
 import React, { Component } from 'react';
 import axios from 'axios';

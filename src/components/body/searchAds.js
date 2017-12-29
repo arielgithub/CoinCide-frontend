@@ -13,9 +13,15 @@ import {
 class Ads extends Component {
   render() {
     let itemData = this.props.itemData;
-    return <ListGroupItem><div>{itemData.id} - {itemData.title} <br /> {itemData.description}
-      <Button color="primary">Dettaglio</Button>
-    </div></ListGroupItem>
+    return <ListGroupItem className="top-buffer-10">
+      <div className="row">
+        <div className="col-md-10">{itemData.id} - {itemData.title} <br /> {itemData.description}
+        </div>
+        <div className="col-md-2 text-right">
+          <Button color="primary">Dettaglio</Button>
+        </div>
+      </div>
+    </ListGroupItem>
   }
 }
 
@@ -28,7 +34,7 @@ class SearchAdsComponent extends React.Component {
         list: [],
         pag: 1,
         totPag: 1,
-        npe: 10,
+        npe: 5,
         tote: 0,
         paginator: []
       }
@@ -74,18 +80,17 @@ class SearchAdsComponent extends React.Component {
       })
   }
 
-  createPaginator(totPag){
+  createPaginator(totPag) {
     var self = this;
     this.state.adses.paginator.push(<PaginationItem><PaginationLink previous href="#" /></PaginationItem>);
     var i;
-    for(i = 1; i<=totPag; i++){
-      this.state.adses.paginator.push(<PaginationItem><PaginationLink key={i} onClick={self.changePage.bind(this,i)}>{i}</PaginationLink></PaginationItem>);
+    for (i = 1; i <= totPag; i++) {
+      this.state.adses.paginator.push(<PaginationItem><PaginationLink key={i} onClick={self.changePage.bind(this, i)}>{i}</PaginationLink></PaginationItem>);
     }
     this.state.adses.paginator.push(<PaginationItem><PaginationLink next href="#" /></PaginationItem>);
   }
 
-  changePage(page){
-    console.log(page);
+  changePage(page) {
     this.getAdsPag(page, this.state.adses.npe);
     this.setState(self.adses);
   }
@@ -95,31 +100,33 @@ class SearchAdsComponent extends React.Component {
       <div className="row">
         <div className="col-md-12">
           <ListGroup>
-            <ListGroupItem className="row">Ricerca:
-            <FormGroup className="col-md-6">
-                <Label for="exampleSelect">Acquisto:</Label>
-                <Input type="select" name="select" id="exampleSelect">
-                  <option>LTC</option>
-                  <option>BTC</option>
-                  <option>ETH</option>
-                  <option>XRP</option>
-                  <option>ADA</option>
-                </Input>
-              </FormGroup>
-              <FormGroup className="col-md-6">
-                <Label for="exampleSelect">Vendo:</Label>
-                <Input type="select" name="select" id="exampleSelect">
-                  <option>LTC</option>
-                  <option>BTC</option>
-                  <option>ETH</option>
-                  <option>XRP</option>
-                  <option>ADA</option>
-                </Input>
+            <ListGroupItem>Ricerca:
+            <FormGroup className="row">
+                <div className="col-md-6">
+                  <Label for="exampleSelect">Acquisto:</Label>
+                  <Input type="select" name="select" id="exampleSelect">
+                    <option>LTC</option>
+                    <option>BTC</option>
+                    <option>ETH</option>
+                    <option>XRP</option>
+                    <option>ADA</option>
+                  </Input>
+                </div>
+                <div className="col-md-6">
+                  <Label for="exampleSelect">Vendo:</Label>
+                  <Input type="select" name="select" id="exampleSelect">
+                    <option>LTC</option>
+                    <option>BTC</option>
+                    <option>ETH</option>
+                    <option>XRP</option>
+                    <option>ADA</option>
+                  </Input>
+                </div>
               </FormGroup>
             </ListGroupItem>
-            <List items={this.state.adses.list} ListItem={Ads} />
           </ListGroup>
-          <Pagination>
+          <List className="list-group" items={this.state.adses.list} ListItem={Ads} />
+          <Pagination className="top-buffer top-buffer-10">
             {this.state.adses.paginator}
           </Pagination>
         </div>
