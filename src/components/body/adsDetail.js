@@ -60,8 +60,7 @@ class AdsDetailComponent extends React.Component {
 
     getAdsPag() {
         var self = this;
-        var id = 2;
-        axios.get('http://localhost:3000/api/ads/' + id).then(res => {
+        axios.get('http://localhost:3000/api/ads/' + this.props.match.params.id).then(res => {
             self.state.ads = res.data;
             self.setState(self.ads)
         }).catch((error) => {
@@ -73,7 +72,7 @@ class AdsDetailComponent extends React.Component {
         var self = this;
         axios.get('http://localhost:3000/api/offers/getOffersByAds', {
             params: {
-                id_ad: 1,
+                id_ad: this.props.match.params.id,
                 pagina: pag,
                 numElementPerPage: numPerPag
             }
@@ -91,7 +90,7 @@ class AdsDetailComponent extends React.Component {
         var self = this;
         axios.get('http://localhost:3000/api/offers/countOffersByAds', {
             params: {
-                id_ad: 1,
+                id_ad: this.props.match.params.id,
                 numElementPerPage: numPerPag
             }
         })
