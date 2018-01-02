@@ -9,6 +9,7 @@ import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
 import insertAds from './components/body/insertAds'
 import SearchAds from './components/body/searchAds'
+import AdsDetail from './components/body/adsDetail'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 // Render the main component into the dom
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route path="/" component={App}/>
         <Route path="/insertAds" component={insertAds}/>
         <Route path="/searchAds" component={SearchAds}/>
+        <Route path="/adsDetail/:id" component={AdsDetail}/>
     </div>
     </BrowserRouter>,
     document.getElementById('app')

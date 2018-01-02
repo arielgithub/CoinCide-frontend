@@ -8,6 +8,8 @@ import {
   ListGroup, ListGroupItem, Button, FormGroup, Input,
   Label, Pagination, PaginationItem, PaginationLink
 } from 'reactstrap';
+import {Link} from 'react-router-dom'
+
 
 
 class Ads extends Component {
@@ -18,7 +20,9 @@ class Ads extends Component {
         <div className="col-md-10">{itemData.id} - {itemData.title} <br /> {itemData.description}
         </div>
         <div className="col-md-2 text-right">
-          <Button color="primary">Dettaglio</Button>
+          <Button color="primary">
+            <Link className="linkClass" to={'/adsDetail/'+itemData.id}>Dettaglio</Link>
+          </Button>
         </div>
       </div>
     </ListGroupItem>

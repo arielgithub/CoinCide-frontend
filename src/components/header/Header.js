@@ -44,7 +44,7 @@ class HeaderComponent extends React.Component {
               <NavItem>
                 <NavLink href="#">Sign Up</NavLink>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
+              <UncontrolledDropdown nav>
                 <DropdownToggle nav caret>
                   User
                 </DropdownToggle>
