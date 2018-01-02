@@ -9,6 +9,7 @@ import {
   Label, Pagination, PaginationItem, PaginationLink
 } from 'reactstrap';
 import {Link} from 'react-router-dom'
+import config from '../../config/configuration';
 
 
 
@@ -52,7 +53,7 @@ class SearchAdsComponent extends React.Component {
 
   getAdsPag(pag, numPerPag) {
     var self = this;
-    axios.get('http://localhost:3000/api/ads/getAdsPag', {
+    axios.get(config.apiUrl+'ads/getAdsPag', {
       params: {
         pagina: pag,
         numElementPerPage: numPerPag
@@ -69,7 +70,7 @@ class SearchAdsComponent extends React.Component {
 
   countElements(numPerPag) {
     var self = this;
-    axios.get('http://localhost:3000/api/ads/countAdsPag', {
+    axios.get(config.apiUrl+'ads/countAdsPag', {
       params: {
         numElementPerPage: numPerPag
       }
@@ -89,7 +90,9 @@ class SearchAdsComponent extends React.Component {
     this.state.adses.paginator.push(<PaginationItem><PaginationLink previous href="#" /></PaginationItem>);
     var i;
     for (i = 1; i <= totPag; i++) {
-      this.state.adses.paginator.push(<PaginationItem><PaginationLink key={i} onClick={self.changePage.bind(this, i)}>{i}</PaginationLink></PaginationItem>);
+      this.state.adses.paginator.push(<PaginationItem><PaginationLink key={i} 
+        onClick={self.changePage.bind(this, i)}>{i}
+        </PaginationLink></PaginationItem>);
     }
     this.state.adses.paginator.push(<PaginationItem><PaginationLink next href="#" /></PaginationItem>);
   }

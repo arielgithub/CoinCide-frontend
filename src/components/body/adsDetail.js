@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import Moment from 'moment';
+import config from '../../config/configuration';
 
 
 class Offer extends Component {
@@ -60,7 +61,7 @@ class AdsDetailComponent extends React.Component {
 
     getAdsPag() {
         var self = this;
-        axios.get('http://localhost:3000/api/ads/' + this.props.match.params.id).then(res => {
+        axios.get(config.apiUrl+'ads/' + this.props.match.params.id).then(res => {
             self.state.ads = res.data;
             self.setState(self.ads)
         }).catch((error) => {
@@ -70,7 +71,7 @@ class AdsDetailComponent extends React.Component {
 
     getOffersByAds(pag, numPerPag) {
         var self = this;
-        axios.get('http://localhost:3000/api/offers/getOffersByAds', {
+        axios.get(config.apiUrl+'offers/getOffersByAds', {
             params: {
                 id_ad: this.props.match.params.id,
                 pagina: pag,
@@ -88,7 +89,7 @@ class AdsDetailComponent extends React.Component {
 
     countOffersByAds(numPerPag) {
         var self = this;
-        axios.get('http://localhost:3000/api/offers/countOffersByAds', {
+        axios.get(config.apiUrl+'offers/countOffersByAds', {
             params: {
                 id_ad: this.props.match.params.id,
                 numElementPerPage: numPerPag

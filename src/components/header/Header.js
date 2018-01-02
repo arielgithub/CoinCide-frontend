@@ -2,6 +2,7 @@ require('normalize.css/normalize.css');
 require('styles/App.css');
 
 import React from 'react';
+import { isLoggedIn } from '../../utility/AuthService';
 import {
   Collapse,
   Navbar,
@@ -13,7 +14,8 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem
+} from 'reactstrap';
 
 
 class HeaderComponent extends React.Component {
@@ -38,29 +40,34 @@ class HeaderComponent extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="#">Sign in</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#">Sign Up</NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav>
-                <DropdownToggle nav caret>
-                  User
+              {
+                (!isLoggedIn()) ? (<NavItem>
+                  <NavLink href="#">Sign Up</NavLink>
+                </NavItem>) : ''
+              }
+
+              {
+                (isLoggedIn()) ? (
+                  <UncontrolledDropdown nav>
+                    <DropdownToggle nav caret>
+                      User
                 </DropdownToggle>
-                <DropdownMenu >
-                  <DropdownItem>
-                    Profile
+                    <DropdownMenu >
+                      <DropdownItem>
+                        Profile
                   </DropdownItem>
-                  <DropdownItem>
-                    Settings
+                      <DropdownItem>
+                        Settings
                   </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Transactions
+                      <DropdownItem divider />
+                      <DropdownItem>
+                        Transactions
                   </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                ) : ''
+              }
+
             </Nav>
           </Collapse>
         </Navbar>
